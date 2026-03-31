@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Influencer Outreach Flow</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="app-header">
+        <h1>Influencer Outreach & Negotiation</h1>
+        <p>Visualize and draft each campaign step in one place.</p>
+      </header>
+
+      <section class="layout">
+        <aside class="panel">
+          <h2>Campaign Inputs</h2>
+          <form id="campaign-form">
+            <label>
+              Influencer name
+              <input id="influencerName" type="text" placeholder="e.g. Alex Rivera" />
+            </label>
+            <label>
+              Platform
+              <input id="platform" type="text" placeholder="e.g. Instagram + TikTok" />
+            </label>
+            <label>
+              Content themes
+              <input id="themes" type="text" placeholder="e.g. wellness, travel, routines" />
+            </label>
+            <label>
+              Brand objective
+              <input id="objective" type="text" placeholder="e.g. product trial + UGC" />
+            </label>
+            <label>
+              Deliverables
+              <input id="deliverables" type="text" placeholder="e.g. 1 Reel, 3 Stories" />
+            </label>
+            <label>
+              Timeline
+              <input id="timeline" type="text" placeholder="e.g. May 10 - May 31" />
+            </label>
+            <label>
+              Budget range
+              <input id="budget" type="text" placeholder="e.g. $800 - $1,200 (optional)" />
+            </label>
+            <label>
+              Tone
+              <select id="tone">
+                <option>Friendly</option>
+                <option>Professional</option>
+                <option>Enthusiastic</option>
+                <option>Concise</option>
+              </select>
+            </label>
+          </form>
+        </aside>
+
+        <section class="panel flow-panel">
+          <div class="stepper" id="stepper"></div>
+
+          <article class="card">
+            <div class="step-meta">
+              <span id="step-count"></span>
+              <h2 id="step-title"></h2>
+              <p id="step-description"></p>
+            </div>
+
+            <div class="output">
+              <h3>Generated Draft</h3>
+              <pre id="generated-output">Fill campaign inputs and click "Generate".</pre>
+            </div>
+
+            <div class="actions">
+              <button id="prev-btn" type="button">Previous</button>
+              <button id="generate-btn" type="button">Generate</button>
+              <button id="next-btn" type="button">Next</button>
+            </div>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -84,3 +84,22 @@ When generating outreach or negotiation content, use:
 - Preserve relationship quality in every negotiation round.
 - Be transparent about assumptions.
 - Keep recommendations actionable and easy to copy/paste into live outreach.
+
+## Simple Visual UI
+
+A lightweight front-end is included to visualize the workflow in simple steps:
+- `index.html`
+- `styles.css`
+- `app.js`
+
+### Run locally
+
+From the repository root:
+
+```bash
+python3 -m http.server 8000
+```
+
+Then open:
+
+`http://localhost:8000`
