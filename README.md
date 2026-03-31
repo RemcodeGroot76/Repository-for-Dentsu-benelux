@@ -103,3 +103,12 @@ python3 -m http.server 8000
 Then open:
 
 `http://localhost:8000`
+
+## Public Preview URL (GitHub Pages)
+
+This repository includes a GitHub Pages deployment workflow:
+- `.github/workflows/deploy-pages.yml`
+
+After the workflow runs on `main`, the app will be available at:
+
+`https://remcodegroot76.github.io/Repository-for-Dentsu-benelux/`
