@@ -92,6 +92,8 @@ A lightweight front-end is included to visualize the workflow in simple steps:
 - `styles.css`
 - `app.js`
 
+This UI can also be published via GitHub Pages using the repository workflow.
+
 ### Run locally
 
 From the repository root:
