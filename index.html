@@ -3,85 +3,344 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Influencer Outreach Flow</title>
-    <link rel="stylesheet" href="styles.css" />
+    <title>Influencer Outreach Agent Preview</title>
+    <style>
+      :root {
+        --bg: #f6f8fc;
+        --card: #ffffff;
+        --border: #d9e1f0;
+        --text: #182033;
+        --muted: #5b657a;
+        --primary: #2f6bff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      .container {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 24px 16px 40px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 1.9rem;
+      }
+
+      .subtitle {
+        margin-top: 8px;
+        color: var(--muted);
+      }
+
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      .step {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 10px;
+      }
+
+      .step strong {
+        display: block;
+        font-size: 0.95rem;
+      }
+
+      .step small {
+        color: var(--muted);
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-top: 14px;
+      }
+
+      .panel {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 16px;
+      }
+
+      .panel h2 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      label span {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+
+      input,
+      textarea,
+      select {
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 10px;
+        font: inherit;
+      }
+
+      textarea {
+        min-height: 90px;
+        resize: vertical;
+      }
+
+      .actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      button {
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 10px 14px;
+        cursor: pointer;
+        background: #fff;
+      }
+
+      button.primary {
+        border-color: var(--primary);
+        background: var(--primary);
+        color: #fff;
+      }
+
+      pre {
+        margin: 0;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: #101729;
+        color: #f5f8ff;
+        white-space: pre-wrap;
+        overflow-x: auto;
+      }
+
+      .hint {
+        margin-top: 10px;
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+
+      @media (max-width: 900px) {
+        .steps {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .layout {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
   <body>
-    <main class="app">
-      <header class="app-header">
-        <h1>Influencer Outreach & Negotiation</h1>
-        <p>Visualize and draft each campaign step in one place.</p>
-      </header>
+    <main class="container">
+      <h1>Influencer Outreach Agent (HTML Preview)</h1>
+      <p class="subtitle">
+        Fill in a profile URL, brand, and timeline to generate a personalized outreach draft.
+      </p>
+
+      <section class="steps" aria-label="Simple outreach steps">
+        <article class="step">
+          <strong>1) Collect Inputs</strong>
+          <small>Profile URL, brand name, timeline, deliverables.</small>
+        </article>
+        <article class="step">
+          <strong>2) Extract Contact</strong>
+          <small>Use contact email found in influencer bio.</small>
+        </article>
+        <article class="step">
+          <strong>3) Draft Outreach</strong>
+          <small>Create a personalized, human message draft.</small>
+        </article>
+        <article class="step">
+          <strong>4) Fill Gaps</strong>
+          <small>Ask only the missing details before sending.</small>
+        </article>
+      </section>
 
       <section class="layout">
-        <aside class="panel">
+        <section class="panel">
           <h2>Campaign Inputs</h2>
-          <form id="campaign-form">
-            <label>
-              Influencer name
-              <input id="influencerName" type="text" placeholder="e.g. Alex Rivera" />
-            </label>
-            <label>
-              Platform
-              <input id="platform" type="text" placeholder="e.g. Instagram + TikTok" />
-            </label>
-            <label>
-              Content themes
-              <input id="themes" type="text" placeholder="e.g. wellness, travel, routines" />
-            </label>
-            <label>
-              Brand objective
-              <input id="objective" type="text" placeholder="e.g. product trial + UGC" />
-            </label>
-            <label>
-              Deliverables
-              <input id="deliverables" type="text" placeholder="e.g. 1 Reel, 3 Stories" />
-            </label>
-            <label>
-              Timeline
-              <input id="timeline" type="text" placeholder="e.g. May 10 - May 31" />
-            </label>
-            <label>
-              Budget range
-              <input id="budget" type="text" placeholder="e.g. $800 - $1,200 (optional)" />
-            </label>
-            <label>
-              Tone
-              <select id="tone">
-                <option>Friendly</option>
-                <option>Professional</option>
-                <option>Enthusiastic</option>
-                <option>Concise</option>
-              </select>
-            </label>
-          </form>
-        </aside>
+          <label>
+            <span>Influencer profile URL</span>
+            <input id="profileUrl" type="url" placeholder="https://www.instagram.com/vicccle/" />
+          </label>
+          <label>
+            <span>Influencer name or handle</span>
+            <input id="influencer" type="text" placeholder="vicccle" />
+          </label>
+          <label>
+            <span>Email found in bio</span>
+            <input id="bioEmail" type="email" placeholder="creator@email.com" />
+          </label>
+          <label>
+            <span>Brand name</span>
+            <input id="brand" type="text" placeholder="Your Brand" />
+          </label>
+          <label>
+            <span>Estimated timeline</span>
+            <input id="timeline" type="text" placeholder="May 10 - May 31" />
+          </label>
+          <label>
+            <span>Deliverables (optional)</span>
+            <input id="deliverables" type="text" placeholder="1 Reel + 3 Stories" />
+          </label>
+          <label>
+            <span>Tone</span>
+            <select id="tone">
+              <option>Friendly</option>
+              <option>Professional</option>
+              <option>Enthusiastic</option>
+              <option>Concise</option>
+            </select>
+          </label>
+          <label>
+            <span>Extra context (optional)</span>
+            <textarea id="context" placeholder="Anything you want the message to include..."></textarea>
+          </label>
+          <div class="actions">
+            <button id="generate" class="primary" type="button">Generate Outreach Draft</button>
+            <button id="reset" type="button">Reset</button>
+          </div>
+          <p class="hint">
+            Tip: If compensation is unclear, the output will ask for your budget range first.
+          </p>
+        </section>
 
-        <section class="panel flow-panel">
-          <div class="stepper" id="stepper"></div>
-
-          <article class="card">
-            <div class="step-meta">
-              <span id="step-count"></span>
-              <h2 id="step-title"></h2>
-              <p id="step-description"></p>
-            </div>
-
-            <div class="output">
-              <h3>Generated Draft</h3>
-              <pre id="generated-output">Fill campaign inputs and click "Generate".</pre>
-            </div>
-
-            <div class="actions">
-              <button id="prev-btn" type="button">Previous</button>
-              <button id="generate-btn" type="button">Generate</button>
-              <button id="next-btn" type="button">Next</button>
-            </div>
-          </article>
+        <section class="panel">
+          <h2>Generated Output</h2>
+          <pre id="output">Click "Generate Outreach Draft" to create your email.</pre>
         </section>
       </section>
     </main>
 
-    <script src="script.js"></script>
+    <script>
+      const fields = {
+        profileUrl: document.getElementById("profileUrl"),
+        influencer: document.getElementById("influencer"),
+        bioEmail: document.getElementById("bioEmail"),
+        brand: document.getElementById("brand"),
+        timeline: document.getElementById("timeline"),
+        deliverables: document.getElementById("deliverables"),
+        tone: document.getElementById("tone"),
+        context: document.getElementById("context"),
+      };
+
+      const output = document.getElementById("output");
+
+      function tonePhrase(tone) {
+        switch (tone) {
+          case "Professional":
+            return "I hope you are doing well";
+          case "Enthusiastic":
+            return "I am excited to reach out";
+          case "Concise":
+            return "Quick note";
+          default:
+            return "Hope you are doing great";
+        }
+      }
+
+      function generateDraft() {
+        const profileUrl = fields.profileUrl.value.trim();
+        const influencer = fields.influencer.value.trim() || "[Influencer Name]";
+        const bioEmail = fields.bioEmail.value.trim() || "[email found in bio]";
+        const brand = fields.brand.value.trim() || "[Brand Name]";
+        const timeline = fields.timeline.value.trim() || "[timeline]";
+        const deliverables = fields.deliverables.value.trim();
+        const tone = fields.tone.value;
+        const context = fields.context.value.trim();
+
+        const missing = [];
+        if (!profileUrl) missing.push("Influencer profile URL");
+        if (!fields.brand.value.trim()) missing.push("Brand name");
+        if (!fields.timeline.value.trim()) missing.push("Estimated timeline");
+        if (!fields.bioEmail.value.trim()) missing.push("Email from bio");
+
+        const deliverablesLine = deliverables
+          ? "We are considering " + deliverables + " for this collaboration."
+          : "We can align together on deliverables that feel natural for your audience.";
+
+        const draft =
+`1. Message Draft
+Subject: Collaboration opportunity with ${brand}
+
+Hi ${influencer},
+
+${tonePhrase(tone)}. I am reaching out on behalf of ${brand} regarding a potential collaboration.
+We discovered your profile (${profileUrl}) and believe your content style could align well with our upcoming campaign.
+
+${deliverablesLine}
+Our estimated timeline is ${timeline}.
+
+If this is of interest, I would love to share the campaign brief and explore a fit that works for both sides.
+
+Best regards,
+[Your Name]
+[Role], ${brand}
+[Website]
+
+To: ${bioEmail}
+
+2. Why this works (quick rationale)
+- Mentions the creator profile directly for personalization.
+- States timeline clearly to reduce ambiguity.
+- Uses collaborative language without over-promising.
+- Keeps next step simple: interest + brief sharing.
+
+3. Optional variations (3-5)
+- Friendly opener: "I have been following your recent posts and loved your storytelling style."
+- Professional opener: "I am contacting you regarding a structured paid campaign opportunity."
+- Concise opener: "Quick outreach from ${brand} for a potential collaboration during ${timeline}."
+- Value-first line: "Your audience fit appears strong for our campaign objective, and we would love to discuss details."
+
+4. Questions to fill any gaps (if relevant)
+- What budget range should we position before discussing rates?
+- What exact deliverables should be required?
+- Do you need paid usage rights or only organic usage?${context ? "\n- Should this context be included in the outreach: " + context : ""}${missing.length ? "\n- Missing required inputs: " + missing.join(", ") : ""}`;
+
+        output.textContent = draft;
+      }
+
+      document.getElementById("generate").addEventListener("click", generateDraft);
+
+      document.getElementById("reset").addEventListener("click", () => {
+        Object.values(fields).forEach((el) => {
+          if (el.tagName === "SELECT") {
+            el.selectedIndex = 0;
+          } else {
+            el.value = "";
+          }
+        });
+        output.textContent = 'Click "Generate Outreach Draft" to create your email.';
+      });
+    </script>
   </body>
 </html>

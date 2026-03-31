@@ -106,6 +106,15 @@ Then open:
 
 `http://localhost:8000`
 
+### Hosted preview options
+
+- GitHub Pages (recommended):  
+  `https://remcodegroot76.github.io/Repository-for-Dentsu-benelux/`  
+  (requires Pages enabled and successful deploy from allowed branch)
+
+- Single-file HTML preview (works even before Pages deploy):  
+  `https://htmlpreview.github.io/?https://raw.githubusercontent.com/RemcodeGroot76/Repository-for-Dentsu-benelux/cursor/agent-outreach-negotiation-16b7/index.html`
+
 ## Public Preview URL (GitHub Pages)
 
 This repository includes a GitHub Pages deployment workflow:
