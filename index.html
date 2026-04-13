@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Influencer Outreach Agent - Bulk Planner</title>
+    <style>
+      :root {
+        --bg: #f6f8fc;
+        --card: #ffffff;
+        --border: #d9e1f0;
+        --text: #182033;
+        --muted: #5b657a;
+        --primary: #2f6bff;
+        --success: #1b8f4b;
+        --warning: #9f6a00;
+        --danger: #a01e2b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      .container {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 24px 16px 40px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 1.85rem;
+      }
+
+      .subtitle {
+        margin-top: 8px;
+        color: var(--muted);
+      }
+
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      .step {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 10px;
+      }
+
+      .step strong {
+        display: block;
+        font-size: 0.95rem;
+      }
+
+      .step small {
+        color: var(--muted);
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-top: 14px;
+      }
+
+      .panel {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 16px;
+      }
+
+      .panel h2 {
+        margin: 0 0 10px;
+        font-size: 1.1rem;
+      }
+
+      .panel p {
+        margin: 0 0 10px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      .form-grid label {
+        margin-bottom: 0;
+      }
+
+      label span {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+
+      input,
+      textarea,
+      select {
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 10px;
+        font: inherit;
+      }
+
+      textarea {
+        min-height: 220px;
+        resize: vertical;
+      }
+
+      .hint {
+        margin-top: 10px;
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+
+      .actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 14px;
+      }
+
+      button {
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 10px 14px;
+        cursor: pointer;
+        background: #fff;
+      }
+
+      button.primary {
+        border-color: var(--primary);
+        background: var(--primary);
+        color: #fff;
+      }
+
+      .summary-row {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .pill {
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: #fff;
+        padding: 10px;
+      }
+
+      .pill strong {
+        display: block;
+        font-size: 1rem;
+      }
+
+      .pill small {
+        color: var(--muted);
+      }
+
+      .ok strong {
+        color: var(--success);
+      }
+
+      .warn strong {
+        color: var(--warning);
+      }
+
+      .error strong {
+        color: var(--danger);
+      }
+
+      .results {
+        margin-top: 14px;
+        display: grid;
+        gap: 10px;
+      }
+
+      .draft-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 12px;
+      }
+
+      .draft-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .draft-head strong {
+        font-size: 1rem;
+      }
+
+      .draft-meta {
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+
+      .status {
+        font-size: 0.76rem;
+        border-radius: 999px;
+        padding: 3px 10px;
+        border: 1px solid var(--border);
+        align-self: start;
+      }
+
+      .status.ready {
+        color: var(--success);
+        border-color: #b7e5c9;
+        background: #effaf3;
+      }
+
+      .status.needs {
+        color: var(--warning);
+        border-color: #f0dbb1;
+        background: #fff8e8;
+      }
+
+      pre {
+        margin: 10px 0 0;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: #101729;
+        color: #f5f8ff;
+        white-space: pre-wrap;
+        overflow-x: auto;
+      }
+
+      .draft-actions {
+        margin-top: 8px;
+      }
+
+      .empty {
+        margin-top: 14px;
+        padding: 14px;
+        border: 1px dashed var(--border);
+        border-radius: 10px;
+        color: var(--muted);
+        background: #fff;
+      }
+
+      @media (max-width: 980px) {
+        .steps {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .layout,
+        .summary-row {
+          grid-template-columns: 1fr;
+        }
+
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <h1>Influencer Outreach Agent - Bulk Send Planner</h1>
+      <p class="subtitle">
+        Prepare up to 20 personalized outreach drafts at once using shared campaign settings and a batch influencer list.
+      </p>
+
+      <section class="steps" aria-label="Bulk outreach workflow">
+        <article class="step">
+          <strong>1) Set campaign defaults</strong>
+          <small>Define objective, timeline, tone, and sender details.</small>
+        </article>
+        <article class="step">
+          <strong>2) Paste influencer rows</strong>
+          <small>One line per influencer with URL, handle, and bio email.</small>
+        </article>
+        <article class="step">
+          <strong>3) Generate batch drafts</strong>
+          <small>Create personalized messages for up to 20 recipients.</small>
+        </article>
+        <article class="step">
+          <strong>4) Send only ready contacts</strong>
+          <small>Use status flags to resolve missing fields before sending.</small>
+        </article>
+      </section>
+
+      <section class="layout">
+        <section class="panel">
+          <h2>Campaign Defaults</h2>
+          <p>These fields apply to the whole batch and keep tone/intent consistent.</p>
+          <div class="form-grid">
+            <label>
+              <span>Brand name</span>
+              <input id="brand" type="text" placeholder="Your Brand" />
+            </label>
+            <label>
+              <span>Campaign objective</span>
+              <input id="objective" type="text" placeholder="Awareness + UGC" />
+            </label>
+            <label>
+              <span>Estimated timeline</span>
+              <input id="timeline" type="text" placeholder="May 10 - May 31" />
+            </label>
+            <label>
+              <span>Deliverables</span>
+              <input id="deliverables" type="text" placeholder="1 Reel + 2 Stories" />
+            </label>
+            <label>
+              <span>Compensation model</span>
+              <select id="compModel">
+                <option>Flat fee</option>
+                <option>Hybrid (fee + affiliate)</option>
+                <option>Performance-based</option>
+                <option>Product + fee</option>
+              </select>
+            </label>
+            <label>
+              <span>Budget range (optional)</span>
+              <input id="budget" type="text" placeholder="$800-$1,200 per creator" />
+            </label>
+            <label>
+              <span>Tone</span>
+              <select id="tone">
+                <option>Friendly</option>
+                <option>Professional</option>
+                <option>Enthusiastic</option>
+                <option>Concise</option>
+              </select>
+            </label>
+            <label>
+              <span>Batch size limit</span>
+              <input id="batchLimit" type="number" min="1" max="20" value="20" />
+            </label>
+          </div>
+
+          <label>
+            <span>Sender signature</span>
+            <input id="signature" type="text" placeholder="Jane Doe | Partnerships Manager | Your Brand" />
+          </label>
+          <label>
+            <span>Extra campaign context (optional)</span>
+            <textarea
+              id="context"
+              style="min-height: 90px"
+              placeholder="Launch details, compliance notes, or talking points to include."
+            ></textarea>
+          </label>
+        </section>
+
+        <section class="panel">
+          <h2>Bulk Influencer Input</h2>
+          <p>
+            Add one influencer per line using: <strong>profile URL | handle/name | email from bio | content themes | personalization note</strong>
+          </p>
+          <label>
+            <span>Influencer rows (up to 20)</span>
+            <textarea id="bulkInput" placeholder="https://www.instagram.com/vicccle/ | vicccle | hello@creator.com | lifestyle, fashion | Loved your recent spring styling reel&#10;https://www.instagram.com/example/ | @example | collab@example.com | wellness, routines | Your audience fit looks great for our launch"></textarea>
+          </label>
+          <p class="hint">
+            If email is missing from bio, the draft is marked as "Needs info" and should not be sent yet.
+          </p>
+          <div class="actions">
+            <button id="generate" class="primary" type="button">Generate Batch Drafts</button>
+            <button id="copyAll" type="button">Copy All Drafts</button>
+            <button id="reset" type="button">Reset</button>
+          </div>
+        </section>
+      </section>
+
+      <section class="summary-row">
+        <article class="pill">
+          <strong id="countParsed">0</strong>
+          <small>Rows parsed</small>
+        </article>
+        <article class="pill ok">
+          <strong id="countReady">0</strong>
+          <small>Ready to send</small>
+        </article>
+        <article class="pill warn">
+          <strong id="countNeedsInfo">0</strong>
+          <small>Need more info</small>
+        </article>
+        <article class="pill error">
+          <strong id="countTruncated">0</strong>
+          <small>Skipped due to 20 limit</small>
+        </article>
+      </section>
+
+      <section id="results" class="results" aria-live="polite"></section>
+      <div id="emptyState" class="empty">Click "Generate Batch Drafts" to create outreach emails for your influencer list.</div>
+    </main>
+
+    <script>
+      const fields = {
+        brand: document.getElementById("brand"),
+        objective: document.getElementById("objective"),
+        timeline: document.getElementById("timeline"),
+        deliverables: document.getElementById("deliverables"),
+        compModel: document.getElementById("compModel"),
+        budget: document.getElementById("budget"),
+        tone: document.getElementById("tone"),
+        batchLimit: document.getElementById("batchLimit"),
+        signature: document.getElementById("signature"),
+        context: document.getElementById("context"),
+        bulkInput: document.getElementById("bulkInput"),
+      };
+
+      const countParsed = document.getElementById("countParsed");
+      const countReady = document.getElementById("countReady");
+      const countNeedsInfo = document.getElementById("countNeedsInfo");
+      const countTruncated = document.getElementById("countTruncated");
+      const results = document.getElementById("results");
+      const emptyState = document.getElementById("emptyState");
+
+      let lastGeneratedTexts = [];
+
+      function toneOpener(tone) {
+        switch (tone) {
+          case "Professional":
+            return "I hope you are doing well.";
+          case "Enthusiastic":
+            return "I am excited to reach out.";
+          case "Concise":
+            return "Quick note from our team.";
+          default:
+            return "Hope you are doing great.";
+        }
+      }
+
+      function isEmail(value) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      }
+
+      function parseRows(rawText) {
+        return rawText
+          .split("\n")
+          .map((line) => line.trim())
+          .filter(Boolean)
+          .map((line, idx) => {
+            const cols = line.split("|").map((v) => v.trim());
+            return {
+              index: idx + 1,
+              profileUrl: cols[0] || "",
+              influencer: cols[1] || "",
+              email: cols[2] || "",
+              themes: cols[3] || "",
+              note: cols[4] || "",
+            };
+          });
+      }
+
+      function sharedMissing() {
+        const missing = [];
+        if (!fields.brand.value.trim()) missing.push("Brand name");
+        if (!fields.objective.value.trim()) missing.push("Campaign objective");
+        if (!fields.timeline.value.trim()) missing.push("Estimated timeline");
+        return missing;
+      }
+
+      function buildDraft(row, sharedMissingFields) {
+        const brand = fields.brand.value.trim() || "[Brand Name]";
+        const objective = fields.objective.value.trim() || "[Objective]";
+        const timeline = fields.timeline.value.trim() || "[Timeline]";
+        const deliverables =
+          fields.deliverables.value.trim() ||
+          "deliverables we can shape around your preferred format";
+        const compModel = fields.compModel.value;
+        const budget = fields.budget.value.trim();
+        const tone = fields.tone.value;
+        const signature = fields.signature.value.trim() || "[Your Name] | Partnerships Team";
+        const context = fields.context.value.trim();
+
+        const influencerName = row.influencer || "[Influencer Name]";
+        const profileUrl = row.profileUrl || "[Profile URL]";
+        const themesText = row.themes ? row.themes : "your content style";
+        const noteText = row.note
+          ? "Personal note: " + row.note
+          : "Personal note: Add one recent post reference for stronger personalization.";
+
+        const rowMissing = [];
+        if (!row.profileUrl) rowMissing.push("Profile URL");
+        if (!row.email || !isEmail(row.email)) rowMissing.push("Valid bio email");
+        if (!row.influencer) rowMissing.push("Influencer handle/name");
+        const allMissing = [...sharedMissingFields, ...rowMissing];
+
+        const draftText = `1. Message Draft
+Subject: Collaboration with ${brand}
+To: ${row.email || "[email missing]"}
+
+Hi ${influencerName},
+
+${toneOpener(tone)} I am reaching out from ${brand} regarding a potential collaboration.
+We came across your profile (${profileUrl}) and think your focus on ${themesText} aligns with our campaign objective: ${objective}.
+
+For this collaboration, we are targeting ${deliverables} within ${timeline}.
+Our preferred compensation model is ${compModel}${budget ? " with an initial working range of " + budget : ""}.
+
+${noteText}
+${context ? "Campaign context: " + context : ""}
+
+If you are open, we can share the full brief and align on scope, timing, and rates.
+
+Best regards,
+${signature}
+
+2. Why this works (quick rationale)
+- References the creator profile and themes for personalization.
+- Keeps scope/timeline clear and easy to evaluate quickly.
+- Uses collaborative language without overpromising outcomes.
+- Keeps compensation transparent while leaving room for discussion.
+
+3. Optional variations (3-5)
+- Friendly: "I have been enjoying your recent content, especially how you cover ${themesText}."
+- Professional: "We are reaching out for a structured paid collaboration with clear scope and timeline."
+- Enthusiastic: "Your style feels like a strong fit for our upcoming launch."
+- Concise: "Quick collaboration idea from ${brand} if you are open to discuss."
+
+4. Questions to fill any gaps (if relevant)
+- Are your current rates aligned with ${compModel} for this scope?
+- Do you have preferred deliverable formats for your audience?
+- Do you require additional lead time within ${timeline}?
+${allMissing.length ? "- Missing required inputs before send: " + allMissing.join(", ") : "- No blocking gaps detected for first outreach send."}`;
+
+        return {
+          text: draftText,
+          missing: allMissing,
+          ready: allMissing.length === 0,
+          recipient: row.email,
+          influencer: influencerName,
+          profileUrl,
+        };
+      }
+
+      function renderCard(draft, idx) {
+        const card = document.createElement("article");
+        card.className = "draft-card";
+
+        const statusClass = draft.ready ? "ready" : "needs";
+        const statusText = draft.ready ? "Ready to send" : "Needs info";
+        const missingSummary = draft.ready
+          ? "No blockers."
+          : "Missing: " + draft.missing.join(", ");
+
+        card.innerHTML = `
+          <div class="draft-head">
+            <div>
+              <strong>#${idx + 1} ${draft.influencer}</strong>
+              <div class="draft-meta">${draft.recipient || "[email missing]"} | ${draft.profileUrl}</div>
+              <div class="draft-meta">${missingSummary}</div>
+            </div>
+            <span class="status ${statusClass}">${statusText}</span>
+          </div>
+          <pre>${draft.text.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</pre>
+          <div class="draft-actions">
+            <button type="button" data-copy-index="${idx}">Copy this draft</button>
+          </div>
+        `;
+
+        return card;
+      }
+
+      function updateSummary(parsed, drafts, truncatedCount) {
+        const ready = drafts.filter((d) => d.ready).length;
+        const needs = drafts.length - ready;
+        countParsed.textContent = parsed.toString();
+        countReady.textContent = ready.toString();
+        countNeedsInfo.textContent = needs.toString();
+        countTruncated.textContent = truncatedCount.toString();
+      }
+
+      function generateBatch() {
+        const rows = parseRows(fields.bulkInput.value);
+        const requestedLimit = Number(fields.batchLimit.value);
+        const limit = Math.max(1, Math.min(20, Number.isFinite(requestedLimit) ? requestedLimit : 20));
+        fields.batchLimit.value = limit.toString();
+
+        const truncatedCount = rows.length > limit ? rows.length - limit : 0;
+        const limitedRows = rows.slice(0, limit);
+        const sharedMissingFields = sharedMissing();
+        const drafts = limitedRows.map((row) => buildDraft(row, sharedMissingFields));
+
+        lastGeneratedTexts = drafts.map((d) => d.text);
+        results.innerHTML = "";
+        drafts.forEach((draft, idx) => {
+          results.appendChild(renderCard(draft, idx));
+        });
+        updateSummary(rows.length, drafts, truncatedCount);
+        emptyState.style.display = drafts.length ? "none" : "block";
+      }
+
+      document.getElementById("generate").addEventListener("click", generateBatch);
+
+      document.getElementById("copyAll").addEventListener("click", async () => {
+        if (!lastGeneratedTexts.length) return;
+        const combined = lastGeneratedTexts
+          .map((text, idx) => `----- Draft ${idx + 1} -----\n${text}`)
+          .join("\n\n");
+        try {
+          await navigator.clipboard.writeText(combined);
+          alert("All generated drafts copied to clipboard.");
+        } catch (err) {
+          alert("Clipboard copy failed. Please copy from the page manually.");
+        }
+      });
+
+      results.addEventListener("click", async (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) return;
+        const idx = target.getAttribute("data-copy-index");
+        if (idx === null) return;
+        const numeric = Number(idx);
+        if (!Number.isInteger(numeric) || !lastGeneratedTexts[numeric]) return;
+
+        try {
+          await navigator.clipboard.writeText(lastGeneratedTexts[numeric]);
+          alert("Draft copied to clipboard.");
+        } catch (err) {
+          alert("Clipboard copy failed. Please copy from the page manually.");
+        }
+      });
+
+      document.getElementById("reset").addEventListener("click", () => {
+        Object.values(fields).forEach((field) => {
+          if (field.tagName === "SELECT") {
+            field.selectedIndex = 0;
+          } else if (field.id === "batchLimit") {
+            field.value = "20";
+          } else {
+            field.value = "";
+          }
+        });
+
+        lastGeneratedTexts = [];
+        results.innerHTML = "";
+        updateSummary(0, [], 0);
+        emptyState.style.display = "block";
+      });
+    </script>
+  </body>
+</html>
