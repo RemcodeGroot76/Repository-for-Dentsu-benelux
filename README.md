@@ -85,12 +85,12 @@ When generating outreach or negotiation content, use:
 - Be transparent about assumptions.
 - Keep recommendations actionable and easy to copy/paste into live outreach.
 
-## Simple Visual UI
+## Simple Visual UI (Bulk Outreach Ready)
 
-A lightweight front-end is included to visualize the workflow in simple steps:
-- `index.html`
-- `styles.css`
-- `app.js`
+A lightweight front-end is included to visualize and prepare outreach workflows:
+- `index.html` (self-contained preview page)
+- Supports batch drafting for up to 20 influencers in one run
+- Uses shared campaign defaults plus row-based influencer input
 
 This UI can also be published via GitHub Pages using the repository workflow.
 
@@ -105,6 +105,16 @@ python3 -m http.server 8000
 Then open:
 
 `http://localhost:8000`
+
+### Bulk input format
+
+Add one influencer per line using:
+
+`profile URL | handle/name | email from bio | content themes | personalization note`
+
+Example:
+
+`https://www.instagram.com/vicccle/ | vicccle | hello@creator.com | lifestyle, fashion | Loved your recent spring styling reel`
 
 ### Hosted preview options
 
